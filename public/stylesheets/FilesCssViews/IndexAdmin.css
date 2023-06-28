@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,600&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #F5F5F5;
+}
+.Side_menu{
+    background-color: #333333 ;
+    height: 100vh;
+    width: 40vh;
+}
+.Effect_background_Options{
+    background-color:#212121;
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    transition: 0.5s;
+}
+.Effect_background_Options:hover{
+    background-color: rgba(0,191,165,0.2);
+}

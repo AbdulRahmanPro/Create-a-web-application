@@ -1,0 +1,129 @@
+<div dir="rtl" class="Login_page mx-auto my-20 container bg-gray-800">
+    <div class="Back_ground_img_login_page ">
+    </div>
+    <form id="Form_Register" action="/register" method="post" class="grid grid-cols-4 gap-1 ">
+        <div class="flex flex-col p-10 col-span-2 ">
+            <label class="text-lg text-cyan-400" for="">اسم المستخدم</label>
+            <input name="register" class="input_form_register" type="text">
+            <p id="message.username" class="text-red-600"></p>
+
+        </div>
+        <div class="flex flex-col p-10 col-span-2">
+            <label class="text-lg text-cyan-400" for="">كلمة السر</label>
+            <input name="password" class="input_form_register" type="password" name="password" id="">
+            <p id="message.password" class="text-red-600"></p>
+
+        </div>
+        <div class="flex flex-col p-10 col-span-2">
+            <label class="text-lg text-cyan-400" for="">البريد الإلكتروني</label>
+            <input name="email" class="input_form_register" type="email">
+            <p id="message.email" class="text-red-600"></p>
+
+        </div>
+        <div class="flex flex-col p-10 col-span-2">
+            <label class="text-lg text-cyan-400" for="">تاريخ الميلاد</label>
+            <input name="birth_date" class="input_form_register" type="date">
+            <p id="message.birth_date" class="text-red-600"></p>
+
+        </div>
+
+        <div class="fit_Button flex flex-col justify-center items-center p-10 col-span-2">
+            <a class="py-2" href="/login">يبدو أن لديك حساب بالفعل هل ترغب في العودة؟</a>
+            <button id="but_form_register" type="submit"
+                class="w-32 text-white bg-cyan-900 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-xl text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">انشاء
+                الحساب</button>
+        </div>
+    </form>
+</div>
+<script>
+const Form_Register = document.getElementById("Form_Register");
+const usernameInput = Form_Register.register;
+const passwordInput = Form_Register.password;
+const emailInput = Form_Register.email;
+const birth_dateInput = Form_Register.birth_date;
+
+usernameInput.addEventListener('input', () => {
+    if (usernameInput.value.trim() !== "") {
+        hideErrorMessage('message.username');
+    }
+});
+
+passwordInput.addEventListener('input', () => {
+    if (passwordInput.value.trim() !== "") {
+        hideErrorMessage('message.password');
+    }
+});
+
+emailInput.addEventListener('input', () => {
+    if (emailInput.value.trim() !== "") {
+        hideErrorMessage('message.email');
+    }
+});
+
+birth_dateInput.addEventListener('input', () => {
+    if (birth_dateInput.value.trim() !== "") {
+        hideErrorMessage('message.birth_date');
+    }
+});
+
+Form_Register.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const data = {
+        username: usernameInput.value,
+        password: passwordInput.value,
+        email: emailInput.value,
+        birth_date: birth_dateInput.value
+    };
+
+    let isValid = true;
+
+    if (data.username.trim() === "") {
+        showErrorMessage('message.username', 'يرجى ملء حقل username');
+        isValid = false;
+    }
+
+    if (data.password.trim() === "") {
+        showErrorMessage('message.password', 'يرجى ملء حقل password');
+        isValid = false;
+    }
+
+    if (data.email.trim() === "") {
+        showErrorMessage('message.email', 'يرجى ملء حقل email');
+        isValid = false;
+    }
+
+    if (data.birth_date.trim() === "") {
+        showErrorMessage('message.birth_date', 'يرجى ملء حقل تاريخ الميلاد');
+        isValid = false;
+    }
+
+    if (isValid) {
+        try {
+            const res = await fetch("/register", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            // Perform any necessary actions based on the response
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+});
+
+function showErrorMessage(elementId, message) {
+    const errorElement = document.getElementById(elementId);
+    errorElement.textContent = message;
+}
+
+function hideErrorMessage(elementId) {
+    const errorElement = document.getElementById(elementId);
+    errorElement.textContent = "";
+}
+
+
+</script>

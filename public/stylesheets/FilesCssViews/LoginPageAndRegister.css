@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@500&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif;
+}
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #34495E;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* 
+=================================
+====تصميم مربع تسجيل الدخول====
+=================================
+*/
+.Login_page{
+    width: 900px;
+    height: 400px;
+    /* background-color: #7F8C8D ; */
+    border-radius: 20px;
+}
+.Form_login{
+    width: 500px;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s;
+    
+}
+.Form_login div input{
+    display: block;
+}
+.input_form{
+    background: none;
+    width:300px;
+    height: 30px;
+    border: 2px #34495E  solid; 
+    border-radius: 10px;  
+    outline: none;
+    font-size: 20px;
+    color: white;
+}
+.Back_ground_img_login_page{
+    width: 400px;
+    height: 100%;
+    float: left;
+    border-radius: 20px 0 0 20px ;
+    background-image: url("/images/img_store_login_page.avif"); 
+    background-position: center;
+    background-size: cover;
+}
+
+/* 
+=================================
+=====تأثيرات====================
+=================================
+*/
+.input_form:hover{
+    border:  2px #95A5A6 solid;
+}
+
+/* 
+=================================
+====تصميم مربع تسجيل الدخول====
+=================================
+*/
+
+
+
+
+/* 
+=================================
+====تصميم مربع انشاء الحساب====
+=================================
+*/
+
+.Form_Register{
+    position: relative;
+}
+
+.input_form_register{
+    background: none;
+    width:200px;
+    height: 30px;
+    border-bottom: 4px #34495E  solid; 
+    border-radius: 4px;
+    outline: none;
+    font-size: 20px;
+    color: white;
+}
+.fit_Button{
+    position: absolute;
+    width: 500px;
+    height: 50px;
+    bottom: 100px;
+}
+
