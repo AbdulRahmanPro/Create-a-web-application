@@ -6,7 +6,9 @@ const db = require("../models/Accounts");
 //  The secret key and the expiration date of the token
 require("dotenv").config();
 
-const tokenSecret = process.env.TOKEN_SECRET;
+const tokenSecret = process.env.TOKEN_SECRET_USER;
+const tokenSecretAdmin = process.env.TOKEN_SECRET_ADMIN;
+
 
 const maxAge = 3 * 24 * 60 * 60;
 
@@ -28,15 +30,16 @@ const handleErrors = async (err) => {
   
     return errors;
   };
-  const cratetoken = (id) => {
-    return jwt.sign({ id }, tokenSecret, {
+  const cratetoken = (id, symbol) => {
+    return jwt.sign({ id }, symbol, {
       expiresIn: maxAge,
     });
   };
   const login_post = (req, res) => {
     db.login(username, password)
     .then((result) => {
-      const token = cratetoken(result._id);
+      res.cookie("type", "user")
+      const token = cratetoken(result._id, tokenSecret);
       res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge });
       res.status(200).json({ succeed: "تم تسجيل الدخول", id: result._id });
     })
@@ -59,7 +62,8 @@ module.exports.register_post = async (req, res) => {
           email,
           birth_date,
         });
-        const token = cratetoken(User._id);
+        res.cookie("type", "user")
+        const token = cratetoken(User._id, tokenSecret);
         res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge });
         res.status(201).json({ succeed: "نجح انشاء الحساب", id: User._id });
       }
@@ -72,17 +76,21 @@ module.exports.login_post = async (req, res) => {
   const { username, password } = req.body;
   try {
     if(username ==="admin" && password === "admin"){
+      res.cookie("type", "admin")
+      const token = cratetoken("admin", tokenSecretAdmin);
+      res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge });
       res.status(200).json({ admin: "isTrue",id: "admin"});
     }else{
       db.login(username, password)
       .then((result) => {
-        const token = cratetoken(result._id);
+        res.cookie("type", "user")
+        const token = cratetoken(result._id,tokenSecretAdmin);
         res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge });
         res.status(200).json({ succeed: "تم تسجيل الدخول", id: result._id });
       })
       .catch((err) => {
         const error = handleErrors(err);
-        res.status(400).json({ error: err.message });
+        res.status(400).json({ 4: err.message });
       });
     }
   } catch (err) {

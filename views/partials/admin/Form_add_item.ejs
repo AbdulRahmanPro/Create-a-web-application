@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اضافة منتجات</title>
+    <link rel="stylesheet" href="../stylesheets/tailwindcss.css">
+    <link rel="stylesheet" href="../stylesheets/FilesCssViews/IndexAdmin.css">
+
+</head>
+
+<body>
+    <div class="flex flex-row">
+        <%- include('../other/Side_meun_admin') %>
+
+            <form class="flex flex-col mx-auto my-auto " action="/addItem">
+                <div class="flex flex-col">
+                    <div class="flex flex-col">
+                        <div class="flex flex-col">
+                            <label for="name">اسم المنتج</label>
+                            <input type="text" name="name" id="name" class="border-2 border-gray-500 rounded-lg">
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="price">السعر</label>
+                            <input type="number" name="price" id="price" class="border-2 border-gray-500 rounded-lg">
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="quantity">الكمية</label>
+                            <input type="number" name="quantity" id="quantity"
+                                class="border-2 border-gray-500 rounded-lg">
+                        </div>
+                    </div>
+                    <div class="flex flex-row">
+                        <div class="flex flex-col">
+                            <label for="category">الفئة</label>
+                            <select name="category" id="category" class="border-2 border-gray-500 rounded-lg">
+                                <option value="1">الفئة الاولى</option>
+                                <option value="2">الفئة الثانية</option>
+                                <option value="3">الفئة الثالثة</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="image">الصورة</label>
+                            <input type="file" name="image" id="image" class="border-2 border-gray-500 rounded-lg">
+                        </div>
+                    </div>
+                    <div class="flex flex-row">
+                        <div class="flex flex-col">
+                            <label for="description">الوصف</label>
+                            <textarea name="description" id="description" cols="30" rows="10"
+                                class="border-2 border-gray-500 rounded-lg"></textarea>
+                        </div>
+                    </div>
+                    <div class="flex flex-row">
+                        <div class="flex flex-col">
+                            <label for="status">الحالة</label>
+                            <select name="status" id="status" class="border-2 border-gray-500 rounded-lg">
+                                <option value="1">متوفر</option>
+                                <option value="0">غير متوفر</option>
+                            </select>
+            </form>
+
+    </div>
+</body>
+
+</html>
