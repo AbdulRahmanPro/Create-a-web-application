@@ -8,8 +8,14 @@ const port = 3000;
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
 const multer = require('multer');
+const methodOverride = require('method-override');
 
 
+
+
+
+
+// Connect to MongoDB
 
 const app = express();
 app.use(function (req, res, next) {
@@ -20,6 +26,8 @@ app.use(function (req, res, next) {
   }
 });
 // view engine setup
+app.use(methodOverride('_method'));
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 

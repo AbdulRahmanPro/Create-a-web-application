@@ -8,9 +8,46 @@ const path = require('path');
 require("dotenv").config();
 const tokenSecret = process.env.TOKEN_SECRET;
 const Product = require('../models/products');
+const data = {
+    labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو'],
+    datasets: [
+      {
+        label: 'عدد المستخدمين',
+        data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }
+    ]
+  };
 
+  // خيارات المخطط
+  const options = {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  };
 
+  module.exports.addItem_get_post = async (req, res) => {
+    try {
+      const products = await Product.find({}); // استرجاع جميع المنتجات
 
+    // استخدم دالة map() لتحويل النتيجة إلى مصفوفة
+    const productArray = products.map(product => product.toObject());
+  
+      // استخدام حلقة for للاستفادة من المحتويات
+      for (let i = 0; i < productArray.length; i++) {
+        const product = productArray[i];
+        // استخدم المتغير "product" هنا للاستفادة من محتويات كل سجل في المجموعة
+        console.log(product);
+      }
+    }
+    catch (err) {
+      console.log(err);
+    }
+  };
 
 module.exports.addItem_post = async (req, res) => {
     const { nameProducts, price, Quantity , tag, description, status } = req.body;
@@ -33,7 +70,19 @@ module.exports.addItem_post = async (req, res) => {
     }
 };
 
-module.exports.addItem_get = (req, res) => {
-    res.render("Form_add_item", { title: "Add Item" });
+module.exports.addItem_get = async(req, res) => {
+  try {
+    const products = await Product.find({}); // استرجاع جميع المنتجات
+
+  // استخدم دالة map() لتحويل النتيجة إلى مصفوفة
+  const productArray = products.map(product => product.toObject());
+    res.render('Form_add_item', { title:"Add Item",products: productArray });
+    // استخدام حلقة for للاستفادة من المحتويات
+
+  }
+  catch (err) {
+    console.log(err);
+  }
 };
+
   
