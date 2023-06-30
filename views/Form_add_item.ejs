@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اضافة منتجات</title>
+    <link rel="stylesheet" href="../stylesheets/tailwindcss.css">
+    <link rel="stylesheet" href="../stylesheets/FilesCssViews/IndexAdmin.css">
+
+</head>
+
+<body>
+    <div class="flex flex-row">
+        <%- include('partials/other/Side_meun_admin') %>
+        <form id="form" class="flex flex-col mx-auto my-auto " action="/admin/addItem" method="POST"
+            enctype="multipart/form-data">
+            <div class="flex flex-col">
+                <div class="flex flex-col">
+                    <div class="flex flex-col">
+                        <label for="nameProducts">اسم المنتج</label>
+                        <input type="text" name="nameProducts" id="name"
+                            class="border-2 border-gray-500 rounded-lg">
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="price">السعر</label>
+                        <input type="number" name="price" id="price" class="border-2 border-gray-500 rounded-lg">
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="Quantity">الكمية</label>
+                        <input type="number" name="Quantity" id="quantity"
+                            class="border-2 border-gray-500 rounded-lg">
+                    </div>
+                </div>
+                <div class="flex flex-row">
+                    <div class="flex flex-col">
+                        <label for="tag">الفئة</label>
+                        <select name="tag" id="category" class="border-2 border-gray-500 rounded-lg">
+                            <option value="1">الفئة الاولى</option>
+                            <option value="2">الفئة الثانية</option>
+                            <option value="3">الفئة الثالثة</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col">
+                        <label for="Image">الصورة</label>
+                        <input type="file" name="Image" id="image" class="border-2 border-gray-500 rounded-lg">
+                    </div>
+                </div>
+                <div class="flex flex-row">
+                    <div class="flex flex-col">
+                        <label for="description">الوصف</label>
+                        <textarea name="description" id="description" cols="30" rows="10"
+                            class="border-2 border-gray-500 rounded-lg"></textarea>
+                    </div>
+                </div>
+                <div class="flex flex-row">
+                    <div class="flex flex-col">
+                        <label for="status">الحالة</label>
+                        <select name="status" id="status" class="border-2 border-gray-500 rounded-lg">
+                            <option value="1">متوفر</option>
+                            <option value="0">غير متوفر</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center">
+                    <button type="submit"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">ارسال
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+<!-- <script>
+    const form = document.getElementById('form');   
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        try {
+            const data = {
+            nameProducts: form.nameProducts.value,
+            price: form.price.value,
+            Quantity: form.Quantity.value,
+            // Image: form.Image.value,
+            tag: form.tag.value,
+            description: form.description.value,
+            status: form.status.value
+        };
+         const FormData1 = new FormData( form);
+            const res = await fetch('/admin/addItem', {
+                method: 'POST',
+                body:JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const responseData = await res.json();
+            console.log(responseData);
+        } catch (err) {
+            console.log(err);
+        }
+    });
+</script> -->
+
+
+</html>

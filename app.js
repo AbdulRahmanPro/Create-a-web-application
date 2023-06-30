@@ -7,6 +7,8 @@ const mongoose = require('mongoose')
 const port = 3000;
 const indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin');
+const multer = require('multer');
+
 
 
 const app = express();
@@ -20,6 +22,7 @@ app.use(function (req, res, next) {
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
 
 app.use(logger('dev'));
 app.use(express.json());
