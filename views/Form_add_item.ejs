@@ -8,13 +8,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="../stylesheets/tailwindcss.css">
     <link rel="stylesheet" href="../stylesheets/FilesCssViews/IndexAdmin.css">
-
 </head>
 
 <body>
     <div class="flex flex-row">
         <%- include('partials/other/Side_meun_admin') %>
-            <div class="flex flex-col justify-center items-center " style="width: 100%;">
+            <div class="flex flex-col justify-center items-center sm:px-6 md:px-8" style=" width: 100%;">
                 <form id="form" class="flex flex-col mx-auto my-auto " action="/admin/addItem" method="POST"
                     enctype="multipart/form-data">
                     <div class="flex flex-col">
@@ -39,9 +38,9 @@
                             <div class="flex flex-col">
                                 <label for="tag">الفئة</label>
                                 <select name="tag" id="category" class="border-2 border-gray-500 rounded-lg">
-                                    <option value="1">الفئة الاولى</option>
-                                    <option value="2">الفئة الثانية</option>
-                                    <option value="3">الفئة الثالثة</option>
+                                    <option value="قطع الكمبيوتر">قطع الكمبيوتر</option>
+                                    <option value="اسلاك">اسلاك</option>
+                                    <option value="لابتوبات">لابتوبات</option>
                                 </select>
                             </div>
                             <div class="flex flex-col">
@@ -73,10 +72,9 @@
                     </div>
                 </form>
 
-                <!--List of products in the database -->
-                <div>
-                    <table class="table-auto bg-black" style="height: 100px; width: 100px;">
-                        <thead>
+                <div class="w-full overflow-x-auto shadow-md sm:rounded-lg mt-8">
+                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th class="px-4 py-2">اسم المنتج</th>
                                 <th class="px-4 py-2">السعر</th>
@@ -90,32 +88,95 @@
                         </thead>
                         <tbody>
                             <% for(var i=0; i<products.length; i++) { %>
-                                <tr>    
-                                    <td class="border px-4 py-2"><%= products[i].nameProducts %></td>
-                                    <td class="border px-4 py-2"><%= products[i].price %></td>
-                                    <td class="border px-4 py-2"><%= products[i].Quantity %></td>
-                                    <td class="border px-4 py-2"><%= products[i].tag %></td>
-                                    <td class="border px-4 py-2"><%= products[i].description %></td>
-                                    <td class="border px-4 py-2"><%= products[i].status %></td>
-                                    <td class="border px-4 py-2"><a href="/admin/editItem/<%= products[i].idProducts%>">تعديل</a></td>
-                                    <td class="border px-4 py-2">
-                                        <form action="/admin/deleteItem/<%= products[i]._id %>?_method=DELETE" method="POST">
-                                          <input type="hidden" name="_method" value="DELETE">
-                                          <button type="submit">حذف</button>
+                                <tr>
+                                    <td id="<%= products[i]._id %>" onclick="showPopup(event)" class="border px-4 py-2">
+                                        <%= products[i].nameProducts %>
+                                    </td>
+                                    <td id="<%= products[i]._id %>" onclick="showPopup(event)" class="border px-4 py-2">
+                                        <%= products[i].price %>
+                                    </td>
+                                    <td id="<%= products[i]._id %>" onclick="showPopup(event)" class="border px-4 py-2">
+                                        <%= products[i].Quantity %>
+                                    </td>
+                                    <td id="<%= products[i]._id %>" onclick="showPopup(event)" class="border px-4 py-2">
+                                        <%= products[i].tag %>
+                                    </td>
+                                    <td id="<%= products[i]._id %>" onclick="showPopup(event)" class="border px-4 py-2">
+                                        <%= products[i].description %>
+                                    </td>
+                                    <td id="<%= products[i]._id %>" onclick="showPopup(event)" class="border px-4 py-2">
+                                        <%= products[i].status %>
+                                    </td>
+                                    <td id="<%= products[i]._id %>" onclick="showPopup(event)" class="border px-4 py-2">
+                                        <p>تعديل</p>
+                                    </td>
+                                    <td id="<%= products[i]._id %>" onclick="showPopup(event, <%= products[i]._id %>)" class="border px-4 py-2">
+                                        <form action="/admin/deleteItem/<%= products[i]._id %>?_method=DELETE"
+                                            method="POST">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit">حذف</button>
                                         </form>
-                                      </td>                         
-                                    </tr>
+                                    </td>
+                                </tr>
                                 <% } %>
                         </tbody>
                     </table>
                 </div>
+                <!--         Moodle Puop input -->
+                <div id="popup"
+                    class="fixed top-48 left-1/2 transform -translate-x-1/2 bg-slate-300 rounded-xl z-50 shadow-2xl Moodle_popup_input"
+                    style="height: 200px; width: 500px; display: none;">
+                    <h1 class="relative top-2 text-2xl text-center"> تعديل المحتوى</h1>
+                    <div class="mx-auto my-auto p-10">
+                        <!-- moodle input -->
+                        <form dir="rtl" action="" class="flex flex-col">
+                            <input type="text" id="helper-text" aria-describedby="helper-text-explanation"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="المحتوى الذي تريد تعديله">
+                            <div class="flex items-center justify-center p-2" style="width: 100%;">
+                                <button onclick="closePopup(event,editItem)" type="button"
+                                    class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">أرسال</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-
     </div>
+
+    <script>
+        var showButton = document.getElementById('show');
+        var closeButton = document.getElementById('close');
+
+        function showPopup(event,id) {
+            event.preventDefault();
+            var popup = document.getElementById('popup');
+            var id = event.target.parentNode.id; // الحصول على ID من العنصر الأب
+            popup.style.display = 'block';
+            var helperText = document.getElementById('helper-text');
+            helperText.setAttribute('idDb', id);     
+        }
+        function editItem(event) {
+            var id = document.getElementById('helper-text').getAttribute('idDb');
+            console.log(id);   
+            
+            
+            // الحصول على ID من العنصر الأب
+            // قم بتنفيذ الإجراءات المطلوبة لتعديل المعلومات باستخدام الـ ID
+            // يمكنك استخدام الـ id لإرسال طلب إلى الخادم لتحديث المنتج المطلوب
+        }
+
+        function closePopup(event, callback) {
+            event.preventDefault(); // لمنع الانتقال إلى صفحة الوجهة عند النقر  
+            var popup = document.getElementById('popup');
+            popup.style.display = 'none';
+            callback()
+
+        }
+
+
+
+    </script>
+
 </body>
-
-<script>
-
-</script>
 
 </html>

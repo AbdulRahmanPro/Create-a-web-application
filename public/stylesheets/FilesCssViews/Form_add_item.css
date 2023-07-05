@@ -1,0 +1,7 @@
+/* class show Moodle_popup_input and colse */
+.Moodle_popup_input {
+    display: none;
+}
+.Moodle_popup_input_hidden.Moodle_popup_input_show {
+    display: block;
+}

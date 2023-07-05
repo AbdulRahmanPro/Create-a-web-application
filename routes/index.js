@@ -8,6 +8,7 @@ router.get('/', (req, res, next) => {
   res.render('Home', { title: 'Express' });
 });
 
+router.post('/register', services.register_post);
 router.post('/login', services.login_post);
 router.get('/login', (req, res, next) => {
   res.render('LoginPage', { title: 'Login' });

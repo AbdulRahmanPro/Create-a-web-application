@@ -33,6 +33,11 @@ const upload = multer({
 }); // تحديد اسم الصورة
 
 /* GET users listing. */
+router.put('/editItem/:id', (req, res) => {
+    const id = req.params.id;
+    console.log(412432);
+});
+
 router.delete('/deleteItem/:id', (req, res) => {
     const id = req.params.id;
     console.log(id);    
@@ -58,7 +63,8 @@ router.delete('/deleteItem/:id', (req, res) => {
       });
     });
 
-  
+
+
 router.post('/addItem', upload.single('Image'), services.addItem_post);   
 router.get('/addItem', services.addItem_get);
 
