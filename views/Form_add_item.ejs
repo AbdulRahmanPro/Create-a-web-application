@@ -59,8 +59,8 @@
                             <div class="flex flex-col">
                                 <label for="status">الحالة</label>
                                 <select name="status" id="status" class="border-2 border-gray-500 rounded-lg">
-                                    <option value="1">متوفر</option>
-                                    <option value="0">غير متوفر</option>
+                                    <option value="متوفر">متوفر</option>
+                                    <option value="غير متوفر">غير متوفر</option>
                                 </select>
                             </div>
                         </div>
@@ -89,28 +89,36 @@
                         <tbody>
                             <% for(var i=0; i<products.length; i++) { %>
                                 <tr>
-                                    <td id="<%= products[i]._id %>" onclick="showPopup(event)" class="border px-4 py-2">
+                                    <td name_type="nameProducts" id="<%= products[i]._id %>" onclick="showPopup(event)"
+                                        class="border px-4 py-2">
                                         <%= products[i].nameProducts %>
                                     </td>
-                                    <td id="<%= products[i]._id %>" onclick="showPopup(event)" class="border px-4 py-2">
+                                    <td name_type="price" id="<%= products[i]._id %>" onclick="showPopup(event,)"
+                                        class="border px-4 py-2">
                                         <%= products[i].price %>
                                     </td>
-                                    <td id="<%= products[i]._id %>" onclick="showPopup(event)" class="border px-4 py-2">
+                                    <td name_type="Quantity" id="<%= products[i]._id %>" onclick="showPopup(event)"
+                                        class="border px-4 py-2">
                                         <%= products[i].Quantity %>
                                     </td>
-                                    <td id="<%= products[i]._id %>" onclick="showPopup(event)" class="border px-4 py-2">
+                                    <td name_type="tag" id="<%= products[i]._id %>" onclick="showPopup(event)"
+                                        class="border px-4 py-2">
                                         <%= products[i].tag %>
                                     </td>
-                                    <td id="<%= products[i]._id %>" onclick="showPopup(event)" class="border px-4 py-2">
+                                    <td name_type="description" id="<%= products[i]._id %>" onclick="showPopup(event)"
+                                        class="description_design border px-4 py-2">
                                         <%= products[i].description %>
                                     </td>
-                                    <td id="<%= products[i]._id %>" onclick="showPopup(event)" class="border px-4 py-2">
+                                    <td name_type="status" id="<%= products[i]._id %>" onclick="showPopup(event)"
+                                        class="border px-4 py-2">
                                         <%= products[i].status %>
                                     </td>
-                                    <td id="<%= products[i]._id %>" onclick="showPopup(event)" class="border px-4 py-2">
-                                        <p>تعديل</p>
+                                    <td name_type="edit" id="<%= products[i]._id %>" onclick="showPopup(event)"
+                                        class="border px-4 py-2">
+                                        تعديل
                                     </td>
-                                    <td id="<%= products[i]._id %>" onclick="showPopup(event, <%= products[i]._id %>)" class="border px-4 py-2">
+                                    <td id="<%= products[i]._id %>" onclick="showPopup(event, <%= products[i]._id %>)"
+                                        class="border px-4 py-2">
                                         <form action="/admin/deleteItem/<%= products[i]._id %>?_method=DELETE"
                                             method="POST">
                                             <input type="hidden" name="_method" value="DELETE">
@@ -141,39 +149,110 @@
                     </div>
                 </div>
             </div>
+
     </div>
 
     <script>
         var showButton = document.getElementById('show');
         var closeButton = document.getElementById('close');
 
-        function showPopup(event,id) {
+        function showPopup(event, id) {
             event.preventDefault();
             var popup = document.getElementById('popup');
-            var id = event.target.parentNode.id; // الحصول على ID من العنصر الأب
+            var parentId = event.target.getAttribute('id');
             popup.style.display = 'block';
             var helperText = document.getElementById('helper-text');
-            helperText.setAttribute('idDb', id);     
+
+           
+            if(event.target.getAttribute('name_type')== 'status'){
+                console.log('status');
+                var select = document.createElement('select');
+                select.setAttribute('id', 'helper-text');
+                select.setAttribute('aria-describedby', 'helper-text-explanation');
+                select.setAttribute('class', 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500');
+                select.setAttribute('name_type', event.target.getAttribute('name_type'));
+                select.setAttribute('idDb', parentId);
+                var options = [
+                    { value: 'غير متوفر', text: 'غير متوفر' },
+                    { value: 'متوفر ', text: 'متوفر' },
+                ];
+
+                options.forEach(function (optionData) {
+                    var option = document.createElement('option');
+                    option.setAttribute('value', optionData.value);
+                    option.innerHTML = optionData.text;
+                    select.appendChild(option);
+                });
+
+                helperText.parentNode.replaceChild(select, helperText);
+            }else{
+                helperText.setAttribute('idDb', parentId);
+                helperText.setAttribute('name_type', event.target.getAttribute('name_type'));
+
+            }
+            if (event.target.getAttribute('name_type') == 'tag' ) {
+                // إزالة عنصر حقل الإدخال وإضافة حقل جديد
+                var select = document.createElement('select');
+                select.setAttribute('id', 'helper-text');
+                select.setAttribute('aria-describedby', 'helper-text-explanation');
+                select.setAttribute('class', 'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500');
+                select.setAttribute('name_type', event.target.getAttribute('name_type'));
+                select.setAttribute('idDb', parentId);
+                var options = [
+                    { value: 'ملابس', text: 'ملابس' },
+                    { value: 'أحذية', text: 'أحذية' },
+                    { value: 'إكسسوارات', text: 'إكسسوارات' }
+                ];
+
+                options.forEach(function (optionData) {
+                    var option = document.createElement('option');
+                    option.setAttribute('value', optionData.value);
+                    option.innerHTML = optionData.text;
+                    select.appendChild(option);
+                });
+
+                helperText.parentNode.replaceChild(select, helperText);
+            } else {
+                helperText.setAttribute('idDb', parentId);
+                helperText.setAttribute('name_type', event.target.getAttribute('name_type'));
+            }
         }
-        function editItem(event) {
-            var id = document.getElementById('helper-text').getAttribute('idDb');
-            console.log(id);   
-            
-            
-            // الحصول على ID من العنصر الأب
-            // قم بتنفيذ الإجراءات المطلوبة لتعديل المعلومات باستخدام الـ ID
-            // يمكنك استخدام الـ id لإرسال طلب إلى الخادم لتحديث المنتج المطلوب
+
+        async function editItem(event) {
+            var id = document.getElementById("helper-text").getAttribute('idDb');
+            var name_type = document.getElementById('helper-text').getAttribute('name_type');
+            var value = document.getElementById('helper-text').value;
+            // إجراءات التحديث: يجب إرسال البيانات إلى الخادم لتحديث المعلومات
+            // يمكنك استخدام الـ id و name_type و value لإنشاء الطلب اللازم
+            console.log(id);
+            console.log(name_type);
+            console.log(value);
+            try {
+                const res = await fetch(`/admin/editItem/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name_type: name_type,
+                        value: value
+                    })
+                });
+
+                const data = await res.json();
+                console.log(data);
+            } catch (err) {
+                console.log(err);
+            }
+
         }
 
         function closePopup(event, callback) {
-            event.preventDefault(); // لمنع الانتقال إلى صفحة الوجهة عند النقر  
+            event.preventDefault();
             var popup = document.getElementById('popup');
             popup.style.display = 'none';
-            callback()
-
+            callback();
         }
-
-
 
     </script>
 
