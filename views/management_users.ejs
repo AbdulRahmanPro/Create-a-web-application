@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet" href="../stylesheets/tailwindcss.css">
+  <link rel="stylesheet" href="../stylesheets/FilesCssViews/IndexAdmin.css">
+
+</head>
+
+<body>
+  <!-- قسم side menu اي القائمة المنسدلة -->
+  <div class="flex flex-row">
+    <%- include('partials/other/Side_meun_admin') %>
+    <!-- A table to show users and manage them -->
+        <div class=" w-full overflow-x-auto shadow-md sm:rounded-lg mt-8">
+            <table>
+                <thead>
+                    <tr class="bg-gray-700 text-white text-center">
+                        <th class="px-4 py-2">الاسم</th>
+                        <th class="px-4 py-2">البريد الالكتروني</th>
+                        <th class="px-4 py-2">الصلاحية</th>
+                        <th class="px-4 py-2">التحكم</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach(function(user){ %>
+                    <tr class="text-center">
+                        <td class="border px-4 py-2"><%= user.username %></td>
+                        <td class="border px-4 py-2"><%= user.email %></td>
+                        <td class="border px-4 py-2"><%= user.role %></td>
+                        <td class="border px-4 py-2">
+                            <a href="/admin/users/<%= user._id %>/edit" class="text-blue-400 hover:text-blue-600 underline">تعديل</a>
+                            <form action="/admin/users/<%= user._id %>?_method=DELETE" method="POST" class="inline-block">
+                                <button type="submit" class="text-red-400 hover:text-red-600 underline">حذف</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+
+        </div>
+  </div>
+</body>
+
+</html>

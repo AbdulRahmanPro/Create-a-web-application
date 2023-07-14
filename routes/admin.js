@@ -117,6 +117,7 @@ router.delete('/deleteItem/:id', (req, res) => {
 
 router.post('/addItem', upload.single('Image'), services.addItem_post);   
 router.get('/addItem', services.addItem_get);
+router.get('/users', services.users_get);
 
 
 module.exports = router;

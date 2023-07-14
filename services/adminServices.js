@@ -8,6 +8,7 @@ const path = require('path');
 require("dotenv").config();
 const tokenSecret = process.env.TOKEN_SECRET;
 const Product = require('../models/products');
+const Account = require('../models/Accounts');
 const data = {
     labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو'],
     datasets: [
@@ -84,5 +85,24 @@ module.exports.addItem_get = async(req, res) => {
     console.log(err);
   }
 };
+
+module.exports.users_get = async (req, res) => {
+  try {
+    const users = await Account.find({}); // استرجاع جميع المستخدمين
+
+    // استخدم دالة map() لتحويل النتيجة إلى مصفوفة
+    const userArray = users.map(user => user.toObject());
+    res.render('management_users', { title: "users", users: userArray });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+
+
+
+
+
+
 
   
