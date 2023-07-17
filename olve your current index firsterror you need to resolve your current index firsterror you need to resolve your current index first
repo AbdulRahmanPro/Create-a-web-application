@@ -1,0 +1,41 @@
+[33mcommit 973d1650011a593a2e6cb0a6bba312be4cac76a4[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: AbdulRahmanPro <progammerabood@gmail.com>
+Date:   Fri Jul 14 13:48:06 2023 +0300
+
+    توقف بسبب ذهابي الى العمل وتأكد من عمل الموقع قبل الذهاب والعمل على صفحة ادارة المستخدمين
+
+[33mcommit 94029f71c4fdba8884a86c8ca0101f9669bac4a5[m
+Author: AbdulRahmanPro <progammerabood@gmail.com>
+Date:   Fri Jul 14 11:36:53 2023 +0300
+
+    تأكد من الكود ولاتظهر اي مشكلة
+
+[33mcommit abbc70f6ca63732159c0f3afd95f86c498155658[m
+Author: AbdulRahmanPro <progammerabood@gmail.com>
+Date:   Thu Jul 6 02:34:35 2023 +0300
+
+    اضافة ميزة جديدة في صفحة المنتجات لمشاركة معلومات id لأضافة ميزة التعديل
+
+[33mcommit e0609a6c6d8c88732f2115f3d07a2f54613337dd[m
+Author: AbdulRahmanPro <progammerabood@gmail.com>
+Date:   Sat Jul 1 02:23:55 2023 +0300
+
+    الانتهاء من اضافة جدول يحوي جميع المنتجات مع اضافة ميزة حذف المنتج
+
+[33mcommit 1c3509b6b7f81b7fd9ad2f32eca298fb57fb1d77[m
+Author: AbdulRahmanPro <progammerabood@gmail.com>
+Date:   Fri Jun 30 20:37:08 2023 +0300
+
+    الانتهاء من بناء نظام الصور ورفع الملفات في المتجر
+
+[33mcommit 51aeb4b9cf196e13f2ff0f739e6cb44484db4f7b[m
+Author: AbdulRahmanPro <progammerabood@gmail.com>
+Date:   Fri Jun 30 03:03:19 2023 +0300
+
+    الانهاء من نظام حماية المسارات الخاصة للموقع
+
+[33mcommit 8caeb2792d76cc5c04e80146112c64ec57207afe[m
+Author: AbdulRahmanPro <progammerabood@gmail.com>
+Date:   Thu Jun 29 00:47:35 2023 +0300
+
+    الانتهاء من تهيئة المسارة الخاصة للموقع وتأكد من عملها
