@@ -98,6 +98,17 @@ module.exports.users_get = async (req, res) => {
   }
 };
 
+module.exports.profile_get = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await Account.findById(id);
+    res.render('profile.ejs', { title: "profiles", user: user.toObject() });
+  }
+  catch (err) {
+    console.log(err);
+  }
+};
+
 
 
 

@@ -32,10 +32,10 @@
                     <tr class="text-center">
                         <td class="border px-4 py-2"><%= user.username %></td>
                         <td class="border px-4 py-2"><%= user.email %></td>
-                        <td class="border px-4 py-2"><%= user.role %></td>
+                        <td class="border px-4 py-2"><%= user.role%></td>
                         <td class="border px-4 py-2">
-                            <a href="/admin/users/<%= user._id %>/edit" class="text-blue-400 hover:text-blue-600 underline">تعديل</a>
-                            <form action="/admin/users/<%= user._id %>?_method=DELETE" method="POST" class="inline-block">
+                            <a href="/admin/users/profile/<%= user._id %>" class="text-blue-400 hover:text-blue-600 underline  px-4">تعديل</a>
+                            <form action="/admin/users/delete/<%= user._id %>?_method=DELETE" method="POST" class="inline-block px-4">
                                 <button type="submit" class="text-red-400 hover:text-red-600 underline">حذف</button>
                             </form>
                         </td>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/stylesheets/tailwindcss.css">
+    <link rel="stylesheet" href="/stylesheets/FilesCssViews/IndexAdmin.css">
+    <style>
+        /* تنسيق العناصر */
+        .profile-card {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-card__image {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+
+        .profile-card__title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-card__subtitle {
+            color: #888;
+        }
+
+        .profile-card__info {
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .profile-card__label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- قسم side menu اي القائمة المنسدلة -->
+    <div class="flex flex-row">
+        <%- include('partials/other/Side_meun_admin') %>
+            <!-- Show user information -->
+            <div class="p-28 flex flex-col" style="width: 100%;">
+                <div class="container mx-auto py-10">
+                    <div class="profile-card">
+                        <h1 class="text-2xl font-bold mb-4">صفحة الملف الشخصي</h1>
+                        <div class="flex items-center mb-4">
+                            <img src="/images/Sample_User_Icon.png" alt="صورة الملف الشخصي" class="profile-card__image">
+                            <div>
+                                <h2 class="profile-card__title">
+                                    <%= user.name %>
+                                </h2>
+                                <p class="profile-card__subtitle">
+                                    <%= user.email %>
+                                </p>
+                            </div>
+                        </div>
+                        <p>
+                            <%= user.bio %>
+                        </p>
+                        <div class="profile-card__info">
+                            <div class="flex flex-col">
+                                <p id="<%= user._id %>" onclick="showPopup(event)" name_type="_id" class="profile-card__label">id المستخدم الخاص بك</p>
+                                <p>
+                                    <%= user._id %>
+                                </p>
+                            </div>
+                            <div class="flex flex-col">
+                                <p id="<%= user._id %>"  onclick="showPopup(event)" name_type="username" class="profile-card__label">اسم المستخدم</p>
+                                <p>
+                                    <%= user.username %>
+                                </p>
+                            </div>
+                            <div class="flex flex-col">
+                                <p id="<%= user._id %>"  onclick="showPopup(event)" name_type="password" class="profile-card__label">كلمة السر</p>
+                                <p>**********</p>
+                            </div>
+                            <div class="flex flex-col">
+                                <p id="<%= user._id %>"  onclick="showPopup(event)" name_type="email" class="profile-card__label">البريد الإلكتروني</p>
+                                <p>
+                                    <%= user.email %>
+                                </p>
+                            </div>
+                            <div class="flex flex-col">
+                                <p id="<%= user._id %>"  onclick="showPopup(event)" name_type="birth_date" class="profile-card__label">تاريخ الميلاد</p>
+                                <p>
+                                    <%= user.birth_date %>
+                                </p>
+                            </div>
+                            <div class="flex flex-col">
+                                <p id="<%= user._id %>"   name_type="role" class="profile-card__label">صلاحيات المستخدم</p>
+                                <p>
+                                    <%= user.role %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="popup"
+                class="fixed top-48 left-1/2 transform -translate-x-1/2 bg-slate-300 rounded-xl z-50 shadow-2xl Moodle_popup_input"
+                style="height: 200px; width: 500px; display: none;">
+                <h1 class="relative top-2 text-2xl text-center"> تعديل المحتوى</h1>
+                <div class="mx-auto my-auto p-10">
+                    <!-- moodle input -->
+                    <form dir="rtl" action="" class="flex flex-col">
+                        <input type="text" id="helper-text" aria-describedby="helper-text-explanation"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="المحتوى الذي تريد تعديله">
+                        <div class="flex items-center justify-center p-2" style="width: 100%;">
+                            <button onclick="closePopup(event,editItem)" type="button"
+                                class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">أرسال</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </div>
+    <script>
+        var showButton = document.getElementById('show');
+        var closeButton = document.getElementById('close');
+
+        function showPopup(event, id) {
+            event.preventDefault();
+            var popup = document.getElementById('popup');
+            var parentId = event.target.getAttribute('id');
+            popup.style.display = 'block';
+            var helperText = document.getElementById('helper-text');
+            helperText.setAttribute('idDb', parentId);
+            helperText.setAttribute('name_type', event.target.getAttribute('name_type'));
+
+
+        }
+
+        async function editItem(event) {
+            var id = document.getElementById("helper-text").getAttribute('idDb');
+            var name_type = document.getElementById('helper-text').getAttribute('name_type');
+            var value = document.getElementById('helper-text').value;
+            // إجراءات التحديث: يجب إرسال البيانات إلى الخادم لتحديث المعلومات
+            // يمكنك استخدام الـ id و name_type و value لإنشاء الطلب اللازم
+            console.log(id);
+            console.log(name_type);
+            console.log(value);
+            try {
+                const res = await fetch(`/admin/users/edit/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name_type: name_type,
+                        value: value
+                    })
+                });
+
+                const data = await res.json();
+                console.log(data);
+            } catch (err) {
+                console.log(err);
+            }
+
+        }
+
+        function closePopup(event, callback) {
+            event.preventDefault();
+            var popup = document.getElementById('popup');
+            popup.style.display = 'none';
+            callback();
+        }
+    </script>
+</body>
+
+</html>

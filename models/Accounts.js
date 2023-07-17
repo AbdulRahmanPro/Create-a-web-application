@@ -26,6 +26,11 @@ const userSchema = new mongoose.Schema({
         type: Date,
         required: [true, 'الرجاء ادخال تاريخ الميلاد'],
     },
+    role : {
+        type: String,
+        default: 'user',
+        enum: ['user', 'admin']
+    }
 
 })
 
