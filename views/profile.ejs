@@ -47,6 +47,14 @@
         .profile-card__label {
             font-weight: bold;
         }
+        .note{
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            position: absolute  ;
+            color: gray;
+            right: 10px;
+        }
     </style>
 </head>
 
@@ -55,6 +63,7 @@
     <div class="flex flex-row">
         <%- include('partials/other/Side_meun_admin') %>
             <!-- Show user information -->
+            
             <div class="p-28 flex flex-col" style="width: 100%;">
                 <div class="container mx-auto py-10">
                     <div class="profile-card">
@@ -75,35 +84,41 @@
                         </p>
                         <div class="profile-card__info">
                             <div class="flex flex-col">
-                                <p id="<%= user._id %>" onclick="showPopup(event)" name_type="_id" class="profile-card__label">id المستخدم الخاص بك</p>
+                                <p id="<%= user._id %>" onclick="showPopup(event)" name_type="_id"
+                                    class="profile-card__label">id المستخدم الخاص بك</p>
                                 <p>
                                     <%= user._id %>
                                 </p>
                             </div>
                             <div class="flex flex-col">
-                                <p id="<%= user._id %>"  onclick="showPopup(event)" name_type="username" class="profile-card__label">اسم المستخدم</p>
+                                <p id="<%= user._id %>" onclick="showPopup(event)" name_type="username"
+                                    class="profile-card__label">اسم المستخدم</p>
                                 <p>
                                     <%= user.username %>
                                 </p>
                             </div>
                             <div class="flex flex-col">
-                                <p id="<%= user._id %>"  onclick="showPopup(event)" name_type="password" class="profile-card__label">كلمة السر</p>
+                                <p id="<%= user._id %>" onclick="showPopup(event)" name_type="password"
+                                    class="profile-card__label">كلمة السر</p>
                                 <p>**********</p>
                             </div>
                             <div class="flex flex-col">
-                                <p id="<%= user._id %>"  onclick="showPopup(event)" name_type="email" class="profile-card__label">البريد الإلكتروني</p>
+                                <p id="<%= user._id %>" onclick="showPopup(event)" name_type="email"
+                                    class="profile-card__label">البريد الإلكتروني</p>
                                 <p>
                                     <%= user.email %>
                                 </p>
                             </div>
                             <div class="flex flex-col">
-                                <p id="<%= user._id %>"  onclick="showPopup(event)" name_type="birth_date" class="profile-card__label">تاريخ الميلاد</p>
+                                <p id="<%= user._id %>" onclick="showPopup(event)" name_type="birth_date"
+                                    class="profile-card__label">تاريخ الميلاد</p>
                                 <p>
                                     <%= user.birth_date %>
                                 </p>
                             </div>
                             <div class="flex flex-col">
-                                <p id="<%= user._id %>"   name_type="role" class="profile-card__label">صلاحيات المستخدم</p>
+                                <p id="<%= user._id %>" name_type="role" class="profile-card__label">صلاحيات المستخدم
+                                </p>
                                 <p>
                                     <%= user.role %>
                                 </p>
@@ -112,6 +127,8 @@
                     </div>
                 </div>
             </div>
+            <p class="note"> يرجى التذكير بأنه يمكنك تعديل اسم المستخدم وكلمة المرور والبريد الإلكتروني الخاص بك. الخاص بل الحساب فقط</p>
+
             <div id="popup"
                 class="fixed top-48 left-1/2 transform -translate-x-1/2 bg-slate-300 rounded-xl z-50 shadow-2xl Moodle_popup_input"
                 style="height: 200px; width: 500px; display: none;">
